@@ -13,6 +13,7 @@ module BlueBottle
       end
       
       def pause_subscription(subscription)
+        raise "#{customer.full_name} does not have an active subscription to #{coffee.name}" unless subscription.active?
         subscription.pause
       end
       
