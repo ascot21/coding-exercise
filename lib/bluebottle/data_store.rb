@@ -36,5 +36,9 @@ module BlueBottle
     def subscriptions_for_coffee(coffee)
       @store[:subscriptions].select { |s| s.coffee_id == coffee.id }
     end
+    
+    def subscriptions_for_coffee_with_status(coffee, status)
+      subscriptions_for_coffee(coffee).select { |s| s.send("#{status}?".to_sym) }
+    end
   end
 end

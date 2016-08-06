@@ -15,6 +15,10 @@ module BlueBottle
       def pause_subscription(subscription)
         subscription.pause
       end
+      
+      def cancel_subscription(subscription)
+        subscription.cancel
+      end
     end
   end
 end

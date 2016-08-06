@@ -82,21 +82,27 @@ describe BlueBottle::CodingQuestion do
   context 'Cancelling:' do
     context 'when Jack cancels his subscription to Bella Donovan,' do
       before do
-        # Establish subscription here
+        subscription = subscription_service.add_subscription(jack, bella_donovan)
+        subscription_service.cancel_subscription(subscription)
       end
 
-      xit 'Jack should have zero active subscriptions' do
+      it 'Jack should have zero active subscriptions' do
+        expect(store.subscriptions_for_customer_with_status(jack, 'active').length).to eq(0)
       end
 
-      xit 'Bella Donovan should have zero active customers subscribed to it' do
+      it 'Bella Donovan should have zero active customers subscribed to it' do
+        expect(store.subscriptions_for_coffee_with_status(bella_donovan, 'active').length).to eq(0)
       end
 
       context 'when Jack resubscribes to Bella Donovan' do
         before do
-          # Establish subscription here
+          subscription_service.add_subscription(jack, bella_donovan)
         end
 
-        xit 'Bella Donovan has two subscriptions, one active, one cancelled' do
+        it 'Bella Donovan has two subscriptions, one active, one cancelled' do
+          expect(store.subscriptions_for_coffee(bella_donovan).length).to eq(2)
+          expect(store.subscriptions_for_coffee_with_status(bella_donovan, 'active').length).to eq(1)
+          expect(store.subscriptions_for_coffee_with_status(bella_donovan, 'cancelled').length).to eq(1)
         end
 
       end
