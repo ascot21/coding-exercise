@@ -41,16 +41,20 @@ describe BlueBottle::CodingQuestion do
 
   context 'Liv and Elijah subscribe to Hayes Valley Espresso' do
     before do
-      # Establish subscriptions here
+      subscription_service.add_subscription(liv, hayes_valley_espresso)
+      subscription_service.add_subscription(elijah, hayes_valley_espresso)
     end
 
-    xit 'Liv should have one active subscription' do
+    it 'Liv should have one active subscription' do
+      expect(store.subscriptions_for_customer_with_status(liv, 'active').length).to eq(1)
     end
 
-    xit 'Elijah should have one active subscription' do
+    it 'Elijah should have one active subscription' do
+      expect(store.subscriptions_for_customer_with_status(elijah, 'active').length).to eq(1)
     end
 
-    xit 'Hayes Valley Espresso should have two customers subscribed to it' do
+    it 'Hayes Valley Espresso should have two customers subscribed to it' do
+      expect(store.subscriptions_for_coffee(hayes_valley_espresso).length).to eq(2)
     end
   end
 
