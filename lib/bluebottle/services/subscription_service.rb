@@ -9,6 +9,11 @@ module BlueBottle
       def add_subscription(customer, coffee)
         new_subscription = BlueBottle::Models::Subscription.new(customer.id, coffee.id)
         @data_store.add_subscription(new_subscription)
+        new_subscription
+      end
+      
+      def pause_subscription(subscription)
+        subscription.pause
       end
     end
   end

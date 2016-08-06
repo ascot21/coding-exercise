@@ -7,7 +7,7 @@ module BlueBottle
                     :coffee_id,
                     :status
                     
-      VALID_STATUSES = ['active', 'inactive']
+      VALID_STATUSES = ['active', 'paused']
       
       VALID_STATUSES.each do |status|
         define_method "#{status}?" do 
@@ -20,6 +20,10 @@ module BlueBottle
         @coffee_id = coffee_id
         @status = status
         validate_status
+      end
+      
+      def pause
+        self.status = 'paused'
       end
 
       private
